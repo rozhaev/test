@@ -17,8 +17,13 @@ public class AlgorithmImpl implements Algorithm {
 
     @Override
     public void run() {
-        Map<Character, Set<String>> mapWords = Arrays.stream(words)
-                .collect(Collectors.groupingBy((String word) -> word.charAt(0), Collectors.toCollection(TreeSet::new)));
+        Map<Character, List<String>> mapWords = Arrays.stream(words)
+                .collect(
+                        Collectors.groupingBy((String word) -> word.charAt(0), Collectors.collectingAndThen(
+                                Collectors.toCollection(ArrayList::new),
+                                words -> words.stream()
+                                        .sorted((s1, s2) -> s1.length()>s2.length() ? -1 : s1.length() == s2.length() ? s1.compareTo(s2) : 0)
+                                        .collect(Collectors.toList()))));
         result = mapWords.entrySet().stream()
                 .filter(entry -> entry.getValue().size()>1)
                 .collect(Collector.of(
