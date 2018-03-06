@@ -1,7 +1,7 @@
 package com.test;
 
 import com.test.algorithm.Algorithm;
-import com.test.algorithm.Impl.AlgorithmAsJava8Impl;
+import com.test.algorithm.Impl.AlgorithmImpl;
 
 import java.util.*;
 
@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args){
         String[] words = scanWordList();
-        Algorithm algorithm = new AlgorithmAsJava8Impl(words);
+        Algorithm algorithm = new AlgorithmImpl(words);
         algorithm.run();
         algorithm.printResult();
     }

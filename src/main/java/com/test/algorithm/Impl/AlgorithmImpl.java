@@ -6,12 +6,12 @@ import java.util.*;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class AlgorithmAsJava8Impl implements Algorithm {
+public class AlgorithmImpl implements Algorithm {
 
     final private String[] words;
     private String result;
 
-    public AlgorithmAsJava8Impl(String[] words) {
+    public AlgorithmImpl(String[] words) {
         this.words = words;
     }
 
@@ -19,7 +19,6 @@ public class AlgorithmAsJava8Impl implements Algorithm {
     public void run() {
         Map<Character, Set<String>> mapWords = Arrays.stream(words)
                 .collect(Collectors.groupingBy((String word) -> word.charAt(0), Collectors.toCollection(TreeSet::new)));
-        System.out.println("Result:");
         result = mapWords.entrySet().stream()
                 .filter(entry -> entry.getValue().size()>1)
                 .collect(Collector.of(
@@ -27,7 +26,6 @@ public class AlgorithmAsJava8Impl implements Algorithm {
                         (stringJoiner, str) -> stringJoiner.add(str.toString()),
                         StringJoiner::merge,
                         StringJoiner::toString));
-
     }
 
     @Override
